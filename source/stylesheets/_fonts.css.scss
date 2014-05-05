@@ -1,0 +1,11 @@
+@each $weight in regular, thin, bold, medium, light {
+  @font-face{ 
+    font-family: "mplus-1m-#{$weight}";
+    src: url('../../fonts/mplus-1m-#{$weight}.ttf') format('truetype');
+  }
+}
+
+@font-face {
+  font-family: 'MigMix-1M-Regular';
+  src: url('../../fonts/migmix-1m-regular.ttf') format('truetype');
+}

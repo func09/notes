@@ -1,0 +1,52 @@
+&.right {
+  padding-left: 8mm;
+  padding-right: 0;
+}
+
+header {
+  margin-bottom: 8mm;
+
+  .box {
+    .typo {
+      margin-top: 5mm;
+
+      .year {
+        font-size: 10mm;
+      }
+
+      .nengo {
+        font-size: 3mm;
+      }
+    }
+  }
+}
+
+.months {
+  .month {
+    float: left;
+    padding: 0 8mm 0 0;
+    width: (100% / 3);
+    min-height: 40mm;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-size: 8pt;
+
+    h2 {
+      font-size: 4mm;
+      margin: 0 0 2mm 1mm;
+    }
+
+    table.calendar {
+      width: 100%;
+
+      th, td {
+        text-align: center;
+        padding-bottom: 1.5mm;
+      }
+
+      th {
+        font-weight: bold;
+      }
+    }
+  }
+}

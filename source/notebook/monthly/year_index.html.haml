@@ -1,0 +1,30 @@
+- content_for :assets do
+  = stylesheet_link_tag "notebook/main", media: :all
+
+#year-index.page-wrapper{ class: [direction] }
+
+  %header
+    - if direction == :left
+      .box
+        .typo
+          .nengo
+            平成#{year.year - 1988}年
+          .year
+            = year.strftime('%Y')
+
+  .content
+    %table.months
+      %thead
+        %tr
+          - months.each do |m|
+            %th
+              = m.strftime("%m %^b")
+      %tbody
+        - (0..30).each do |n|
+          %tr
+            - months.each do |m|
+              - if day = m.change(day: n + 1) rescue nil
+                %td{ class: wday_style_name(day) }
+                  = day.strftime("%d %^a")
+              - else
+                %td

@@ -1,0 +1,88 @@
+@import 'compass';
+
+$page-width: 130mm;
+$page-height: 210mm;
+$border-color: #CCC;
+
+@media print {
+  @page {
+    size: $page-width*2 $page-height - 1mm;
+    margin: 0;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
+
+  font-size: 8pt;
+
+  width: $page-width*2;
+  height: $page-height - 1mm;
+  overflow: hidden;
+  padding: 8mm;
+
+  // margin-top: -0.5mm;
+
+  box-sizing: border-box;
+  background: rgba(gray, .1);
+
+  & > * {
+    background: rgba(gray, .1);
+  }
+
+  & * {
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  header {
+    height: 20mm;
+    padding: 5mm;
+  }
+
+  table {
+    $height: ($page-height - 16mm) / 7;
+    width: 100%;
+    // border: 1pt solid $border-color;
+    // border-collapse: collapse;
+
+    tr {
+      vertical-align: top;
+    }
+
+    th {
+      height: $height;
+      vertical-align: middle;
+    }
+
+    td {
+      // border-top: 1pt solid $border-color;
+      // border-left: 1pt dashed rgba($border-color, 0.1);
+      height: $height;
+    }
+
+    .date {
+      .box {
+        padding: 2mm;
+      }
+
+      background: rgba(white, 0.5);
+
+      &.current {
+        background: rgba(white, 1);
+
+        &.sunday {
+          background: rgba(red, 0.1);
+        }
+
+        &.saturday {
+          background: rbga(blue, 0.1);
+        }
+      }
+    }
+  }
+}

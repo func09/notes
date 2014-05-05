@@ -1,0 +1,36 @@
+- content_for :assets do
+  = stylesheet_link_tag "notebook/main", media: :all
+
+#year-calendar.page-wrapper{ class: [direction] }
+
+  %header
+    .box
+      .typo
+        .nengo
+          平成#{year.year - 1988}年
+        .year
+          = year.strftime('%Y')
+
+  .content
+    %ol.months
+      - (1..12).each do |m|
+        - month = Date.new(year.year, m)
+        %li.month
+          %h2
+            = month.month
+          - to   = month.end_of_month.end_of_week
+          - from = month.beginning_of_month.beginning_of_week
+          %table.calendar
+            %thead
+              %tr
+                - (from .. from.end_of_week).each do |wd|
+                  %th
+                    = wd.strftime('%^a')[0]
+            %tbody
+              - (from .. to).to_a.in_groups_of(7) do |week|
+                %tr
+                  - week.each do |day|
+                    %td{ class: wday_style_name(day) }
+                      - if day.month == month.month
+                        = day.day
+
