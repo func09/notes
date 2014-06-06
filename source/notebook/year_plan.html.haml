@@ -1,0 +1,29 @@
+- content_for :assets do
+  = stylesheet_link_tag "notebook/main", media: :all
+
+#year-planner.page-wrapper{ class: [direction] }
+  
+  %header
+    - if direction == :left
+      .typo{ class: wday_style_name(year) }
+        %span.y
+          = year.strftime("%Y")
+        %span
+          PLAN
+
+  .content
+    .grid
+      = partial 'svg/section', locals: { section: 4, w: 120, h: 180 }
+    - if direction == :left
+      %section#vision
+        %h2
+          VISION
+        .box
+
+    - else
+      %section#record
+        %h2
+          RECORD
+        .box
+
+

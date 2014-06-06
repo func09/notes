@@ -1,25 +1,11 @@
 @import "compass";
 @import "../fonts";
-
 @include global-reset();
-
-// Size
-
-$page-width: 130mm;
-$page-height: 210mm;
-
-// Color
-
-$font-color: #666666;
-$bg-color: #EEEEEE;
-$border-color: #DDDDDD;
-$saturday: lighten($font-color, 25%);
-$sunday: red;
-$holiday: red;
+@import "common";
 
 @media print {
   @page {
-    size: $page-width $page-height;
+    size: $page-width $page-height - 1mm;
     margin: 0;
   }
 }
@@ -34,6 +20,7 @@ body {
   & > .pages {
     display: flex;
 
+    .page,
     .page > iframe {
       width: $page-width;
       height: $page-height;
@@ -42,41 +29,90 @@ body {
 }
 
 .page-wrapper {
+  padding: $margin;
   color: $font-color;
   font-size: 10pt;
-  font-family: 'MigMix-1M-Regular';
+  // font-family: "Open Sans";
+  // font-family: 'Open Sans Condensed', sans-serif;
+  // font-family: 'Arial';
+  font-family: 'migmix-1m-regular', 'Helvetica Neue';
 
   width: $page-width;
-  height: $page-height;
+  height: $page-height - 1mm;
   box-sizing: border-box;
   overflow: hidden;
 
-  &.left { padding-left: 8mm; }
-  &.right { padding-right: 8mm; }
-
-  .saturday {
-    color: $saturday;
+  &.left {
+    border-right: $border-width dashed $border-color;
+    padding-right: 0;
   }
-
-  .sunday {
-    color: $sunday;
-  }
-
-  .holiday {
-    color: $holiday;
-  }
+  &.right { padding-left: 0; }
 
   header {
-    margin-bottom: 8mm;
-    min-height: 30mm;
+    margin-bottom: $section;
+    min-height: $section * 7;
 
     .box {
       padding: 2mm;
-      box-sizing: border-box;
       background: $bg-color;
-      width: 40mm;
-      height: 30mm;
+      width: -2mm + ($page-width - 8mm) / 4;
+      height: -2mm + $section * 6;
     }
+  }
+
+  &#year-planner,
+  &#month-planner {
+    header {
+      min-height: 0;
+      height: $section * 3;
+
+      .typo {
+        font-size: $section * 2.2;
+      }
+    }
+
+    &.left,
+    &.right {
+      padding: $margin;
+    }
+
+    .content {
+      position: relative;
+      overflow: hidden;
+      height: $section * 45;
+
+      .grid {
+        z-index: -10;
+        position: absolute;
+      }
+
+      h2 {
+        font-size: $section;
+        padding: $section * 0.5 0;
+        border-bottom: 2pt solid $border-color;
+        background: white;
+      }
+    }
+
+    section {
+      margin-bottom: $margin;
+
+      > .box {
+        height: $section * 20;
+      }
+
+      &#vision,
+      &#record {
+        > .box {
+          height: $section * 43;
+        }
+      }
+    }
+  }
+
+  &#month-cover,
+  &#week-cover {
+    @import "cover";
   }
 
   &#year-calendar {
@@ -84,41 +120,14 @@ body {
   }
 
   &#year-index {
-    header {
-      .box {
-        .typo {
-          margin-top: 5mm;
-          .year { font-size: 10mm; }
-          .nengo { font-size: 3mm; }
-        }
-      }
-    }
-    .months {
-      width: 100%;
-      border-collapse: collapse;
+    @import "year_index";
+  }
 
-      td, th {
-        box-sizing: border-box;
-        padding: 1mm 1.5mm;
-        border: 1px solid $border-color;
-      }
+  &#month-calendar {
+    @import "month_calendar";
+  }
 
-      th {
-        height: 12mm;
-        font-size: 4mm;
-      }
-
-      tr:last-child {
-        td {
-          border-bottom: 1px solid $border-color;
-        }
-      }
-
-      td {
-        font-size: 2.5mm;
-        border-top: none;
-        border-bottom: 1px dashed $border-color;
-      }
-    }
+  &#week-calendar-memo {
+    @import "week_calendar_memo";
   }
 }

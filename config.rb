@@ -1,89 +1,120 @@
 require 'active_support/all'
 
-YEAR = 2014
+class Page
+  def initialize(prefix = "page", format = "%03d")
+    @prefix = prefix
+    @format = format
+    @page   = 0
+  end
 
-# MONTHLY
+  def countup
+    @page += 1
+    self
+  end
+
+  def to_s
+    @prefix + @format % @page
+  end
+end
+
+YEAR = 2014
+MONTHS = Date.new(2014, 7) .. Date.new(2014, 9)
+
+page = Page.new
+
+# COVER
+proxy "/notebook/#{page.countup}.html", "notebook/cover.html", locals: { direction: :right, months: MONTHS }, ignore: true
+
+# YEAR
 YEAR.step(YEAR + 1).each.with_index do |year, index|
-  proxy "/notebook/monthly/page_01_#{sprintf("%02d", index)}.html",
-    "notebook/monthly/year_calendar.html",
+  proxy "/notebook/#{page.countup}.html",
+    "notebook/year_calendar.html",
     locals: {
       year: Date.new(YEAR + index),
-      direction: index.even? ? :left : :right,
-    },
+      direction: index.even? ? :left : :right, },
     ignore: true
 end
 
 (Date.new(YEAR).beginning_of_year .. Date.new(YEAR).next_year.end_of_year).select{|d| d.day == 1}.
-  in_groups_of(3).each.with_index do |group, index|
+  in_groups_of(6).each.with_index do |group, index|
     year = group.first
-    proxy "/notebook/monthly/page_02_#{sprintf("%02d", index)}.html", "notebook/monthly/year_index.html", locals: { year: year, months: group, direction: index.even? && :left }, ignore: true
+    proxy "/notebook/#{page.countup}.html",
+      "notebook/year_index.html",
+      locals: {
+        year: year,
+        months: group,
+        direction: index.even? ? :left : :right },
+      ignore: true
   end
 
+year = Date.new(YEAR)
+proxy "/notebook/#{page.countup}.html", "notebook/year_plan.html",
+  locals: { direction: :left, year: year },
+  ignore: true
+proxy "/notebook/#{page.countup}.html", "notebook/year_plan.html",
+  locals: { direction: :right, year: year },
+  ignore: true
 
-# proxy "/this-page-has-no-template.html", "/template-file.html", :locals => {
-#  :which_fake_page => "Rendering a fake page with a local variable" }
+MONTHS.select{|d| d.day == 1}.each.with_index do |m, n|
+  # MONTH
+  proxy "/notebook/#{page.countup}.html",
+    "notebook/month_calendar.html",
+    locals: { month: m, direction: :left },
+    ignore: true
+  proxy "/notebook/#{page.countup}.html",
+    "notebook/month_calendar.html",
+    locals: { month: m, direction: :right },
+    ignore: true
+end
 
+MONTHS.select{|d| d.day == 1}.each.with_index do |m, n|
+  # PLAN
+  proxy "/notebook/#{page.countup}.html",
+    "notebook/month_plan.html",
+    locals: { direction: :left, month: m },
+    ignore: true
 
-###
-# Compass
-###
+  proxy "/notebook/#{page.countup}.html",
+    "notebook/month_plan.html",
+    locals: { direction: :right, month: m },
+    ignore: true
 
-# Change Compass configuration
-# compass_config do |config|
-#   config.output_style = :compact
-# end
+  # WEEKLY
+  weeks = (m.beginning_of_month.beginning_of_week .. m.end_of_month.end_of_week).select{|d| d.wday == 0}
+  weeks.each.with_index do |week, n|
 
-###
-# Page options, layouts, aliases and proxies
-###
+    proxy "/notebook/#{page.countup}.html", "notebook/week_calendar.html",
+      locals: { month: m,
+        week: week,
+        direction: :left },
+      ignore: true
 
-# Per-page layout changes:
-#
-# With no layout
-# page "/path/to/file.html", :layout => false
-#
-# With alternative layout
-# page "/path/to/file.html", :layout => :otherlayout
-#
-# A path which all have the same layout
-# with_layout :admin do
-#   page "/admin/*"
-# end
+    proxy "/notebook/#{page.countup}.html", "notebook/week_calendar.html",
+      locals: { month: m,
+        week: week,
+        direction: :right },
+      ignore: true
 
-# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
-# proxy "/this-page-has-no-template.html", "/template-file.html", :locals => {
-#  :which_fake_page => "Rendering a fake page with a local variable" }
+  end
 
-###
-# Helpers
-###
-
-# Automatic image dimensions on image_tag helper
-# activate :automatic_image_sizes
-
-# Reload the browser automatically whenever files change
-# configure :development do
-#   activate :livereload
-# end
-
-# Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+end
 
 helpers do
-  def wday_style_name(date)
+  def ja_wdays
+    %w(日 月 火 水 木 金 土)
+  end
+
+  def wday_style_name(date, ignores: [])
     klasses = []
-    klasses << date.strftime("%A").downcase
-    klasses << :holiday if date.national_holiday?
+    klasses << date.strftime("%a").downcase
+    klasses << date.strftime("%b").downcase unless ignores.include?(:month)
+    klasses << :holiday if !ignores.include?(:holiday) && date.national_holiday?
     klasses
   end
 end
 
-set :css_dir, 'stylesheets'
-set :js_dir, 'javascripts'
+set :css_dir,    'stylesheets'
+set :js_dir,     'javascripts'
 set :images_dir, 'images'
 
 activate :autoprefixer
@@ -97,9 +128,9 @@ set :page_width, 130
 set :page_height, 210
 
 after_build do |builder|
-  inputfile = "build/notebook/monthly/page_*.html"
-  tmpfile = "tmp/tmp.pdf"
-  outfile = "tmp/notebook.pdf"
+  inputfile = "build/notebook/page*.html"
+  tmpfile = "tmp/notes_tmp.pdf"
+  outfile = "tmp/notes.pdf"
   `wkhtmltopdf --outline --margin-top 0 --margin-left 0 --margin-right 0 --margin-bottom 0 --page-height #{page_height} --page-width #{page_width} #{inputfile} #{tmpfile}`
-  # `pdfjam --landscape --booklet true --nup 2x1 --outfile #{outfile} #{tmpfile}`
+  `pdfjam --landscape --booklet true --nup 2x1 --outfile #{outfile} #{tmpfile}`
 end

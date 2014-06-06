@@ -1,0 +1,19 @@
+- content_for :assets do
+  = stylesheet_link_tag "notebook/main", media: :all
+- direction = :right
+
+#month-cover.page-wrapper{ class: [direction] }
+
+  %header
+    .typo
+      .title
+        CALENDAR
+      .sub_title
+        - s = months.begin
+        - e = months.end
+        %span><= s.strftime("%Y/%-m")
+        %span><= "~"
+        - if s.year == e.year
+          = e.strftime("%-m")
+        - else
+          = e.strftime("%Y/%-m")

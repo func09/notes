@@ -1,0 +1,119 @@
+.month {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  tr:last-child {
+    td {
+      border-bottom: none;
+    }
+  }
+
+  .wday, .day, .aside {
+
+    overflow: hidden;
+    padding: 2mm;
+    // box-sizing: border-box;
+    border: $border-width solid $border-color;
+    border-right-style: dashed;
+    border-left-width: 0;
+
+    &.mon {
+      border-left: $border-width solid $border-color;
+    }
+
+    &.sun {
+      border-right: none;
+    }
+  }
+
+  .wday {
+    @extend %month-bg-holiday;
+    background: white !important;
+    height: $section * 6 - 4mm;
+    border-top: none;
+
+    .en {
+      margin-bottom: 1mm;
+      font-size: $section;
+    }
+
+    .ja {
+      font-size: $section * 0.7;
+    }
+
+  }
+
+  .day {
+    @extend %month-bg-holiday;
+    position: relative;
+    height: $section * 7 - 4mm;
+    vertical-align: top;
+
+    &.other {
+      background: white;
+    }
+
+    .typo {
+      font-size: 4mm;
+    }
+
+    .holiday-name {
+      position: absolute;
+      bottom: 2mm;
+      font-size: 2.5mm;
+      font-weight: bold;
+      opacity: 0.6;
+    }
+  }
+
+  .aside {
+
+    &.header {
+      @extend %month-bg;
+      @extend %month-color;
+      border: none;
+
+      .typo {
+        .m-col {
+          float: left;
+        }
+
+        .m-name {
+          margin-top: 1.5mm;
+          font-size: $section * 1;
+        }
+
+        .m { font-size: $section * 4; }
+        .y { font-size: $section * 1; }
+      }
+    }
+
+    &.todos {
+      $todo-color: lighten($font-color, 25%);
+      border-top: none;
+      padding: 2mm 2mm 0 0;
+      color: $todo-color;
+      font-size: 2.8mm;
+
+      > p {
+        padding-top: 1mm;
+        padding-bottom: 0.5mm;
+        // border-bottom: $border-width solid $todo-color;
+
+        &:first-child {
+          padding-top: 0;
+        }
+
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+  }
+
+  .mini-calendar {
+    text-align: center;
+  }
+
+}

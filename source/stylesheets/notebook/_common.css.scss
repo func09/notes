@@ -1,0 +1,95 @@
+// Size
+
+$page-width: 130mm;
+$page-height: 210mm;
+$margin: 5mm;
+
+// $section: $page-width / 35;
+$section: 4mm;
+$border-width: 0.5mm;
+
+// Color
+
+$font-color: #999999;
+// $bg-color: #bfda53;
+$bg-color: #eee;
+$border-color: #DDDDDD;
+$saturday: lighten($font-color, 10%);
+$sunday: #ec7461;
+$holiday: $sunday;
+$other: lighten($font-color, 35%);
+
+$month-names: jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec;
+$month-colors: #A6273C, #8FAD3B, #F0D4D0, #C18E63, #723D5B, #649079, #D6CADE, #B2656F, #28315A, #735FA4, #D04B46, #B4D4DF;
+
+// Extend
+
+%month-color {
+  @each $class_name in $month-names {
+    $index_key: index($month-names, $class_name);
+    &.#{$class_name} {
+      color: lighten(nth($month-colors, $index_key), 40%);
+    }
+  }
+}
+
+%month-font {
+  @each $class_name in $month-names {
+    $index_key: index($month-names, $class_name);
+    &.#{$class_name} {
+      color: nth($month-colors, $index_key);
+    }
+  }
+}
+
+%month-bg {
+  @each $class_name in $month-names {
+    $index_key: index($month-names, $class_name);
+    &.#{$class_name} {
+      background: nth($month-colors, $index_key);
+    }
+  }
+}
+
+%month-bg-holiday {
+  @each $class_name in $month-names {
+    $index_key: index($month-names, $class_name);
+    &.holiday.#{$class_name},
+    &.sun.#{$class_name} {
+      color: rgba(nth($month-colors, $index_key), 0.7);
+      background: rgba(nth($month-colors, $index_key), 0.04);
+    }
+    &.other {
+      background: white !important;
+    }
+  }
+}
+
+%wday-font {
+  &.sat {
+    color: $saturday;
+  }
+  &.sun {
+    color: $sunday;
+  }
+  &.holiday {
+    color: $holiday;
+  }
+  &.other {
+    color: $other;
+  }
+}
+
+%wday-bg {
+  $opacity: 0.05;
+
+  &.sat {
+    background: rgba($saturday, $opacity);
+  }
+  &.sun {
+    background: rgba($sunday, $opacity);
+  }
+  &.holiday {
+    background: rgba($holiday, $opacity);
+  }
+}

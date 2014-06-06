@@ -1,0 +1,24 @@
+&.right {
+  padding-left: $margin;
+}
+
+header {
+  .typo {
+    margin-top: 50%;
+    margin-left: $margin;
+    font-family: 'Trebuchet MS';
+    font-size: 15mm;
+    font-weight: bold;
+
+    .title {
+      display: inline-block;
+      padding-bottom: 1mm;
+      border-bottom: 3mm solid $font-color;
+    }
+
+    .sub_title {
+      margin-top: 5mm;
+      font-size: 8mm;
+    }
+  }
+}

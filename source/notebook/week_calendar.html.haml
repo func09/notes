@@ -1,0 +1,55 @@
+- content_for :assets do
+  = stylesheet_link_tag "notebook/main", media: :all
+
+- days = week.beginning_of_week .. week.end_of_week
+
+- if direction == :left
+  #week-calendar-memo.page-wrapper{ class: [direction] }
+
+    %header
+      .typo{ class: wday_style_name(month) }
+        %span.m
+          = month.strftime("%-m")
+        %span.y
+          = month.strftime("%^b %Y")
+
+    .content
+      .grid
+        = partial 'svg/section', locals: { section: 4, w: 120, h: 140 }
+      %table.week
+        - days.each do |d|
+          - if d.month != month.month
+            %tr
+              %td.other.date{ class: wday_style_name(d) }
+                .typo
+                  .day
+                    - if [d.beginning_of_month, d.beginning_of_week].include?(d)
+                      = d.strftime("%-m/%-d")
+                    - else
+                      = d.strftime("%-d")
+                  .wd
+                    = ja_wdays[d.wday]
+                - if d.national_holiday?
+                  .holiday-name
+                    = HolidayJapan.name(d)
+          - else
+            %tr
+              %td.date{ class: wday_style_name(d) }
+                .typo
+                  .day
+                    = d.strftime("%-d")
+                  .wd
+                    = ja_wdays[d.wday]
+                - if d.national_holiday?
+                  .holiday-name
+                    = HolidayJapan.name(d)
+
+    %footer
+
+      .todos
+        - 5.times do
+          %p □
+
+      .mini-calendar
+        = partial "svg/mini_calendar", locals: { current_week: week, month: month, w: 24, h: 24 }
+

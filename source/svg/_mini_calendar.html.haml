@@ -1,0 +1,41 @@
+- w ||= 30
+- h ||= 30
+- current_week ||= nil
+- section ||= w / 7
+- font_size = section * 0.6
+- month ||= Date.new(2014, 5)
+- days = (month.beginning_of_month.beginning_of_week .. month.end_of_month.end_of_week).to_a
+- view_box = "0 0 #{w} #{h}"
+%svg{ width: "#{w}mm", height: "#{h}mm", viewBox: view_box, preserveAspectRatio: 'xMinYMin'}
+  :css
+    text {
+      fill: #999;
+    }
+
+    .sun {
+      fill: #ec7461;
+    }
+
+  %g{ transform: "translate(0, #{section * 1})" }
+    %text{ x: section * 3.5, 'font-size' => font_size * 1.2, 'text-anchor' => 'middle' }
+      = month.strftime("%m")
+
+  %g{ transform: "translate(#{section * 0.5}, 0)" }
+
+    %g{ transform: "translate(0, #{section * 2})" }
+      - (month.beginning_of_week .. month.end_of_week).each.with_index do |day, m|
+        %g{ width: section, height: section, transform: "translate(#{m * section}, 0)" }
+          %text{ class: [day.strftime("%a").downcase], 'font-size' => font_size, 'text-anchor' => 'middle' }
+            = day.strftime("%a")[0]
+
+    %g{ transform: "translate(0, #{section * 3})" }
+      - days.in_groups_of(7).each.with_index do |week, n|
+        %g{ transform: "translate(0, #{section * n})" }
+          - if current_week && current_week.beginning_of_week == week.first
+            %g{ transform: "translate(#{-(section * 0)}, #{-(section * 0.25)})" }
+              %path{ d: "M0, 0 L#{w - section * 1.5}, 0", "stroke" => "#EEE", "stroke-width" => section, "stroke-linecap" => "round" }
+          - week.each.with_index do |day, m|
+            - if day.month == month.month
+              %g{ width: section, height: section, transform: "translate(#{m * section}, 0)" }
+                %text{ class: [day.strftime("%a").downcase], 'font-size' => font_size, 'text-anchor' => 'middle' }
+                  = day.day

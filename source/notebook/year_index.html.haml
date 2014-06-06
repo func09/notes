@@ -17,14 +17,19 @@
       %thead
         %tr
           - months.each do |m|
-            %th
-              = m.strftime("%m %^b")
+            %th{ class: m.strftime("%b").downcase }
+              .typo
+                .m
+                  = m.strftime("%m")
+                .m-name
+                  = m.strftime("%^b")
       %tbody
         - (0..30).each do |n|
           %tr
             - months.each do |m|
               - if day = m.change(day: n + 1) rescue nil
-                %td{ class: wday_style_name(day) }
-                  = day.strftime("%d %^a")
+                %td{ class: [wday_style_name(day), m.strftime("%b").downcase] }
+                  = day.strftime("%d")
+                  = ja_wdays[day.wday]
               - else
                 %td

@@ -1,0 +1,100 @@
+&.left { padding-right: $margin; }
+
+header {
+  min-height: 0;
+  height: $section * 2;
+
+  .typo {
+    @extend %month-font;
+    margin-left: 1mm;
+
+    .m {
+      font-size: 8mm;
+    }
+
+    .y {
+      font-size: 3mm;
+    }
+  }
+}
+
+.content {
+  border-top: $border-width solid $border-color;
+  border-bottom: $border-width solid $border-color;
+  height: $section * 5 * 7;
+  overflow: hidden;
+}
+
+.grid {
+  position: absolute;
+}
+
+&.right {
+  padding-left: $margin;
+  
+  .content {
+    overflow: hidden;
+  }
+}
+
+.week {
+  width: 100%;
+
+  tr {
+    border-bottom: $border-width solid $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    td {
+      height: ($section * 5);
+    }
+
+    .date {
+      @extend %wday-font;
+      position: relative;
+      vertical-align: top;
+
+      .holiday-name {
+        font-weight: bold;
+        position: absolute;
+        top: 5mm;
+        left: 12mm;
+        opacity: 0.1;
+        font-size: 10mm;
+      }
+
+      .typo {
+        text-align: center;
+        width: 6mm;
+
+        .day {
+          margin-top: 5mm;
+          font-size: 6mm;
+        }
+
+        .wd {
+          margin-top: 2mm;
+          font-size: 3mm;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  .todos {
+    float: left;
+    padding: 2mm;
+    margin-top: 5mm;
+    > p {
+      margin-bottom: 1mm;
+    }
+  }
+
+  .mini-calendar {
+    padding-top: 3mm;
+    float: right;
+  }
+}

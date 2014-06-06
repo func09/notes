@@ -2,8 +2,8 @@
   = stylesheet_link_tag "notebook/main", media: :all
 
 - params = request.params
-- pages = sitemap.resources.select{|n| n.path =~ %r(^notebook/monthly/page_(.+)(\.html)$) }
--# - pages = pages.unshift(nil)
+- pages = sitemap.resources.select{|n| n.path =~ %r(^notebook/page(.+)(\.html)$) }
+- pages = pages.unshift(nil)
 
 .preview-wrapper
 

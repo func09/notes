@@ -1,22 +1,13 @@
-&.right {
-  padding-left: 8mm;
-  padding-right: 0;
-}
+
+&.left { padding-right: $margin; }
+&.right { padding-left: $margin; }
 
 header {
-  margin-bottom: 8mm;
-
   .box {
     .typo {
-      margin-top: 5mm;
-
-      .year {
-        font-size: 10mm;
-      }
-
-      .nengo {
-        font-size: 3mm;
-      }
+      margin-top: 4mm;
+      .year { font-size: 8mm; }
+      .nengo { font-size: 2.4mm; }
     }
   }
 }
@@ -24,15 +15,14 @@ header {
 .months {
   .month {
     float: left;
-    padding: 0 8mm 0 0;
-    width: (100% / 3);
-    min-height: 40mm;
-    box-sizing: border-box;
+    padding: 0 $section * 1.8 0 0;
+    width: ($page-width - $section * 2 * 4) / 3;
+    min-height: $section * 10;
     overflow: hidden;
-    font-size: 8pt;
+    font-size: 2.5mm;
 
     h2 {
-      font-size: 4mm;
+      font-size: $section * 0.8;
       margin: 0 0 2mm 1mm;
     }
 
@@ -40,8 +30,13 @@ header {
       width: 100%;
 
       th, td {
+        @extend %wday-font;
         text-align: center;
-        padding-bottom: 1.5mm;
+        height: $section;
+      }
+
+      td {
+        @extend %wday-bg;
       }
 
       th {

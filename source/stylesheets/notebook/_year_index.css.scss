@@ -1,0 +1,56 @@
+header {
+  .box {
+    .typo {
+      margin-top: 4mm;
+      .year { font-size: 8mm; }
+      .nengo { font-size: 2.4mm; }
+    }
+  }
+}
+
+.months {
+  width: 100%;
+  border-collapse: collapse;
+
+  td, th {
+    padding: 1mm;
+    border: $border-width solid $border-color;
+    border-right: none;
+    border-left-style: dashed;
+
+    &.jan {
+      border-left-style: solid;
+    }
+
+    &.dec {
+      border-right: $border-width solid $border-color;
+    }
+  }
+
+  th {
+    height: $section * 2;
+    .typo {
+      .m {
+        font-size: $section * 1;
+      }
+      .m-name {
+        font-size: $section * 0.5;
+      }
+    }
+  }
+
+  tr:last-child {
+    td {
+      border-bottom: $border-width solid $border-color;
+    }
+  }
+
+  td {
+    @extend %wday-font;
+    @extend %wday-bg;
+    height: $section - 1.0mm;
+    font-size: 2mm;
+    border-top: none;
+    border-bottom: $border-width dashed $border-color;
+  }
+}

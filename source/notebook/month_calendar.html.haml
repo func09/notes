@@ -1,0 +1,57 @@
+- content_for :assets do
+  = stylesheet_link_tag "notebook/main", media: :all
+
+- target_wdays = direction == :left ? [1,2,3] : [0,4,5,6]
+
+#month-calendar.page-wrapper{ class: [direction] }
+
+  .contents
+    %table.month
+      - from = month.beginning_of_month.beginning_of_week
+      - to = from + (7 * 6) - 1
+      - days = (from .. to).to_a
+      %thead
+        %tr
+          - if direction == :left
+            %th.aside.header{ class: month.strftime("%^b").downcase }
+              - if direction == :left
+                .typo
+                  .m-col
+                    .m
+                      = month.strftime("%m")
+                  .m-col
+                    .m-name
+                      = month.strftime("%^b")
+                    .y
+                      = month.strftime("%Y")
+          - (from .. from.end_of_week).each do |wd|
+            - if target_wdays.include?(wd.wday)
+              %th.wday{ class: [wday_style_name(wd, ignores: [:holiday])] }
+                .en
+                  = wd.strftime("%^a")
+                .ja
+                  = ja_wdays[wd.wday]
+      %tbody
+        - days.in_groups_of(7).each.with_index do |group, n|
+          %tr
+            - if direction == :left
+              %td.aside.todos
+                - 5.times do
+                  %p □
+            - group.each.with_index do |d, m|
+              - if target_wdays.include?(d.wday)
+                - if d.month == month.month
+                  %td.day{ class: wday_style_name(d) }
+                    .typo
+                      = d.strftime("%d")
+                    - if d.national_holiday?
+                      .holiday-name
+                        = HolidayJapan.name(d)
+                - elsif days[-2] == d
+                  %td.day.other.mini-calendar
+                    = partial "svg/mini_calendar", locals: { month: month.prev_month }
+                - elsif days[-1] == d
+                  %td.day.other.mini-calendar
+                    = partial "svg/mini_calendar", locals: { month: month.next_month }
+                - else
+                  %td.day.other{ class: wday_style_name(d) }
