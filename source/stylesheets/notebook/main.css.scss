@@ -1,5 +1,4 @@
 @import "compass";
-@import "../fonts";
 @include global-reset();
 @import "common";
 
@@ -32,10 +31,8 @@ body {
   padding: $margin;
   color: $font-color;
   font-size: 10pt;
-  // font-family: "Open Sans";
-  // font-family: 'Open Sans Condensed', sans-serif;
-  // font-family: 'Arial';
-  font-family: 'migmix-1m-regular', 'Helvetica Neue';
+  // Install M+ FONTS from http://mplus-fonts.sourceforge.jp/
+  font-family: 'M+ 1m', 'Helvetica';
 
   width: $page-width;
   height: $page-height - 1mm;
