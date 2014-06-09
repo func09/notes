@@ -56,18 +56,6 @@ proxy "/notebook/#{page.countup}.html", "notebook/year_plan.html",
   ignore: true
 
 MONTHS.select{|d| d.day == 1}.each.with_index do |m, n|
-  # MONTH
-  proxy "/notebook/#{page.countup}.html",
-    "notebook/month_calendar.html",
-    locals: { month: m, direction: :left },
-    ignore: true
-  proxy "/notebook/#{page.countup}.html",
-    "notebook/month_calendar.html",
-    locals: { month: m, direction: :right },
-    ignore: true
-end
-
-MONTHS.select{|d| d.day == 1}.each.with_index do |m, n|
   # PLAN
   proxy "/notebook/#{page.countup}.html",
     "notebook/month_plan.html",
@@ -79,23 +67,31 @@ MONTHS.select{|d| d.day == 1}.each.with_index do |m, n|
     locals: { direction: :right, month: m },
     ignore: true
 
+  # MONTH
+  proxy "/notebook/#{page.countup}.html",
+    "notebook/month_calendar.html",
+    locals: { month: m, direction: :left },
+    ignore: true
+  proxy "/notebook/#{page.countup}.html",
+    "notebook/month_calendar.html",
+    locals: { month: m, direction: :right },
+    ignore: true
+end
+
+MONTHS.select{|d| d.wday == 0}.each.with_index do |week, n|
+
   # WEEKLY
-  weeks = (m.beginning_of_month.beginning_of_week .. m.end_of_month.end_of_week).select{|d| d.wday == 0}
-  weeks.each.with_index do |week, n|
+  proxy "/notebook/#{page.countup}.html", "notebook/week_calendar_vertical.html",
+    locals: { month: week.beginning_of_month,
+      week: week,
+      direction: :left },
+    ignore: true
 
-    proxy "/notebook/#{page.countup}.html", "notebook/week_calendar.html",
-      locals: { month: m,
-        week: week,
-        direction: :left },
-      ignore: true
-
-    proxy "/notebook/#{page.countup}.html", "notebook/week_calendar.html",
-      locals: { month: m,
-        week: week,
-        direction: :right },
-      ignore: true
-
-  end
+  proxy "/notebook/#{page.countup}.html", "notebook/week_calendar_vertical.html",
+    locals: { month: week.beginning_of_month,
+      week: week,
+      direction: :right },
+    ignore: true
 
 end
 

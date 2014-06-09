@@ -28,7 +28,8 @@ $month-colors: #A6273C, #8FAD3B, #F0D4D0, #C18E63, #723D5B, #649079, #D6CADE, #B
   @each $class_name in $month-names {
     $index_key: index($month-names, $class_name);
     &.#{$class_name} {
-      color: lighten(nth($month-colors, $index_key), 40%);
+      // color: lighten(nth($month-colors, $index_key), 40%);
+      color: white;
     }
   }
 }
@@ -92,4 +93,8 @@ $month-colors: #A6273C, #8FAD3B, #F0D4D0, #C18E63, #723D5B, #649079, #D6CADE, #B
   &.holiday {
     background: rgba($holiday, $opacity);
   }
+}
+
+.clearfix {
+  @include clearfix;
 }

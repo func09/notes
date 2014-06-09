@@ -1,0 +1,162 @@
+$schedule-height: $section * 40;
+
+&.left {
+  .week {
+    margin-left: 25%;
+    width: 75%;
+  }
+}
+
+&.right {
+  .content {
+    overflow: hidden;
+  }
+
+  .week {
+    width: 100%;
+  }
+}
+
+header {
+  position: relative;
+  float: left;
+  width: 25%;
+  height: 100%;
+  min-height: 0;
+
+  .inner {
+    padding: $section;
+  }
+
+  .month {
+    @extend %month-bg;
+    @extend %month-color;
+    margin-right: $section * 0.5;
+    margin-bottom: $section * 0.5;
+
+    .typo {
+      .m-col {
+        float: left;
+      }
+
+      .m-name {
+        font-size: $section * 0.8;
+      }
+
+      .m {
+        font-size: $section * 2;
+        font-weight: lighter;
+      }
+
+      .y {
+        font-size: $section * 0.8;
+        font-weight: lighter;
+      }
+    }
+  }
+
+  .mini-calendars {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.content {
+  height: $schedule-height;
+}
+
+.grid {
+  position: absolute;
+}
+
+.week {
+
+  height: 100%;
+
+  tr {
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    td, th {
+      border-left: $border-width solid $border-color;
+
+      &:nth-child(1) {
+        border-left: none;
+      }
+
+      width: 25%;
+
+      .inner {
+        padding: $section / 2;
+      }
+    }
+
+    th.date {
+      @extend %wday-font;
+      height: $section * 4.5;
+      border-bottom: $border-width dashed $border-color;
+      border-top: $border-width * 2 solid $border-color;
+
+      position: relative;
+      vertical-align: top;
+
+      .holiday-name {
+        font-weight: bold;
+        opacity: 0.25;
+        font-size: 4mm;
+      }
+
+      .typo {
+        margin-bottom: 2mm;
+
+        .day {
+          font-size: 5mm;
+        }
+
+        .wd {
+          font-size: 3mm;
+        }
+      }
+
+    }
+
+    td.todos {
+      height: $section * 4.5;
+      overflow: hidden;
+      border-bottom: $border-width * 2 solid $border-color;
+
+      .todo {
+        padding-bottom: $section * 0.25;
+        font-weight: lighter;
+        font-size: $section * 0.5;
+      }
+    }
+
+    td.schedule {
+      border-bottom: $border-width * 2 solid $border-color;
+      vertical-align: top;
+
+      dt {
+        position: relative;
+        margin-bottom: $schedule-height * 0.02;
+
+        .line {
+          position: absolute;
+          display: block;
+          border-bottom: $border-width dashed $border-color;
+          top: 52.5%;
+          right: 0;
+          width: 85%;
+        }
+
+        time {
+          font-size: $section * 0.5;
+          font-weight: lighter;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

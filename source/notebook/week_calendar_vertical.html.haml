@@ -1,0 +1,72 @@
+- content_for :assets do
+  = stylesheet_link_tag "notebook/main", media: :all
+
+- target_wdays = direction == :left ? [1,2,3] : [0,4,5,6]
+- days = ( week.beginning_of_week .. week.end_of_week ).to_a.select{ |d| target_wdays.include?(d.wday) }
+- months = ( week.beginning_of_week .. week.end_of_week ).to_a.map{ |d| Date.new(d.year, d.month) }.uniq
+
+#week-calendar-vertical.page-wrapper{ class: [direction] }
+
+  - if direction == :left
+    %header
+      - months.each do |m|
+        .month{ class: m.strftime("%^b").downcase }
+          .inner
+            .typo.clearfix
+              .m-col
+                .m
+                  = m.strftime("%m")
+              .m-col
+                .m-name
+                  = m.strftime("%^b")
+                .y
+                  = m.strftime("%Y")
+      .inner
+        .mini-calendars
+          - months.each do |m|
+            .mini-calendar
+              = partial "svg/mini_calendar", locals: { current_week: week, month: m, w: 24, h: 24 }
+  .content
+    %table.week
+      - days.each do |d|
+        %colgroup.day
+
+      %thead
+        -# DAY HEADER
+        %tr
+          - days.each do |d|
+            %th.date{ class: wday_style_name(d) }
+              .inner
+                .typo
+                  .day
+                    = d.strftime("%-d")
+                  .wd
+                    = d.strftime("%^a")
+                - if d.national_holiday?
+                  .holiday-name
+                    = HolidayJapan.name(d)
+
+        -# TODOS
+        %tr
+          - days.each do |d|
+            %td.todos
+              .inner
+                %p.todo □
+                %p.todo □
+                %p.todo □
+                %p.todo □
+      %tbody
+        -# SCHEDULES
+        %tr
+          - days.each do |d|
+            %td.schedule
+              .inner
+                %dl
+                  - (7..23).each do |t|
+                    %dt
+                      %time
+                        - if t % 6 == 0
+                          %span.line
+                          = "%02d" % t
+                        - else
+                          ・
