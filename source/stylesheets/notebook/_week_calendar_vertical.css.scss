@@ -29,30 +29,14 @@ header {
   }
 
   .month {
-    @extend %month-bg;
-    @extend %month-color;
-    margin-right: $section * 0.5;
-    margin-bottom: $section * 0.5;
+    @extend %month-font;
+    font-size: $section * 2.5;
+    font-weight: lighter;
+  }
 
-    .typo {
-      .m-col {
-        float: left;
-      }
-
-      .m-name {
-        font-size: $section * 0.8;
-      }
-
-      .m {
-        font-size: $section * 2;
-        font-weight: lighter;
-      }
-
-      .y {
-        font-size: $section * 0.8;
-        font-weight: lighter;
-      }
-    }
+  .week-info {
+    margin-top: $section;
+    font-size: $section * 0.75;
   }
 
   .mini-calendars {
@@ -111,13 +95,8 @@ header {
       .typo {
         margin-bottom: 2mm;
 
-        .day {
-          font-size: 5mm;
-        }
-
-        .wd {
-          font-size: 3mm;
-        }
+        .day { font-size: $section; }
+        .wd { font-size: 3mm; }
       }
 
     }

@@ -13,7 +13,6 @@
 
     overflow: hidden;
     padding: 2mm;
-    // box-sizing: border-box;
     border: $border-width solid $border-color;
     border-right-style: dashed;
     border-left-width: 0;
@@ -28,7 +27,7 @@
   }
 
   .wday {
-    @extend %month-bg-holiday;
+    @extend %wday-font;
     background: white !important;
     height: $section * 6 - 4mm;
     border-top: none;
@@ -45,10 +44,11 @@
   }
 
   .day {
-    @extend %month-bg-holiday;
+    @extend %wday-font;
     position: relative;
     height: $section * 7 - 4mm;
     vertical-align: top;
+    font-weight: lighter;
 
     &.other {
       background: white;
@@ -70,11 +70,12 @@
   .aside {
 
     &.header {
-      @extend %month-bg;
-      @extend %month-color;
+      @extend %month-font;
       border: none;
 
       .typo {
+        font-weight: lighter;
+
         .m-col {
           float: left;
         }

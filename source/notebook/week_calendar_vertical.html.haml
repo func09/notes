@@ -9,18 +9,24 @@
 
   - if direction == :left
     %header
-      - months.each do |m|
-        .month{ class: m.strftime("%^b").downcase }
-          .inner
-            .typo.clearfix
-              .m-col
-                .m
-                  = m.strftime("%m")
-              .m-col
-                .m-name
-                  = m.strftime("%^b")
-                .y
-                  = m.strftime("%Y")
+      .months
+        - months.each do |m|
+          %span.month{ class: m.strftime("%^b").downcase }
+            = m.strftime("%m")
+      .week-info
+        .year-no
+          %span Year
+          %span= week.year
+        .week-no
+          %span Week
+          %span= week.cweek
+          %span>< th
+        .week-no
+          %span Day
+          %span= week.beginning_of_week.yday
+          %span>< ..
+          %span><= week.end_of_week.yday
+          %span th
       .inner
         .mini-calendars
           - months.each do |m|
@@ -28,9 +34,6 @@
               = partial "svg/mini_calendar", locals: { current_week: week, month: m, w: 24, h: 24 }
   .content
     %table.week
-      - days.each do |d|
-        %colgroup.day
-
       %thead
         -# DAY HEADER
         %tr
@@ -38,9 +41,10 @@
             %th.date{ class: wday_style_name(d) }
               .inner
                 .typo
-                  .day
+                  %span.day><
                     = d.strftime("%-d")
-                  .wd
+                  %span>< &nbsp;
+                  %span.wd><
                     = d.strftime("%^a")
                 - if d.national_holiday?
                   .holiday-name
@@ -49,7 +53,7 @@
         -# TODOS
         %tr
           - days.each do |d|
-            %td.todos
+            %td.todos{ class: wday_style_name(d) }
               .inner
                 %p.todo □
                 %p.todo □
@@ -59,7 +63,7 @@
         -# SCHEDULES
         %tr
           - days.each do |d|
-            %td.schedule
+            %td.schedule{ class: wday_style_name(d) }
               .inner
                 %dl
                   - (7..23).each do |t|

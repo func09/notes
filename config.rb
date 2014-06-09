@@ -18,7 +18,7 @@ class Page
 end
 
 YEAR = 2014
-MONTHS = Date.new(2014, 7) .. Date.new(2014, 9)
+MONTHS = Date.new(2014, 4) .. Date.new(2015, 3)
 
 page = Page.new
 
@@ -66,7 +66,9 @@ MONTHS.select{|d| d.day == 1}.each.with_index do |m, n|
     "notebook/month_plan.html",
     locals: { direction: :right, month: m },
     ignore: true
+end
 
+MONTHS.select{|d| d.day == 1}.each.with_index do |m, n|
   # MONTH
   proxy "/notebook/#{page.countup}.html",
     "notebook/month_calendar.html",
