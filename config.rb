@@ -17,8 +17,10 @@ class Page
   end
 end
 
+ignore "notebook/week_calendar_memo.html"
+
 YEAR = 2014
-MONTHS = Date.new(2014, 4) .. Date.new(2015, 3)
+MONTHS = Date.new(2014, 7) .. Date.new(2014, 12)
 
 page = Page.new
 
