@@ -127,4 +127,22 @@ body {
   &#week-calendar-vertical {
     @import "week_calendar_vertical";
   }
+
+  // Page index
+  .page_index {
+    @extend %month-index;
+    position: absolute;
+    top: 0mm;
+    width: 2mm;
+    height: $index_height;
+    background-color: red;
+  }
+
+  &.left .page_index {
+    left: -1mm;
+  }
+
+  &.right .page_index {
+    right: -1mm;
+  }
 }
