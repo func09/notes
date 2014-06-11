@@ -71,7 +71,7 @@
 
     &.header {
       @extend %month-font;
-      border: none;
+      border-top: none;
 
       .typo {
         font-weight: lighter;
