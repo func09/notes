@@ -7,6 +7,7 @@ $margin: 5mm;
 // $section: $page-width / 35;
 $section: 4mm;
 $border-width: 0.5mm;
+$index_height: 12mm;
 
 // Color
 
@@ -62,6 +63,16 @@ $month-colors: #A6273C, #8FAD3B, #F0D4D0, #C18E63, #723D5B, #649079, #D6CADE, #B
     }
     &.other {
       background: white !important;
+    }
+  }
+}
+
+%month-index {
+  @each $class_name in $month-names {
+    $index_key: index($month-names, $class_name);
+    &.#{$class_name} {
+      top: ($index_key * $index_height) + $margin;
+      background: nth($month-colors, $index_key);
     }
   }
 }

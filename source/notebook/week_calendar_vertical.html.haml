@@ -6,6 +6,7 @@
 - months = ( week.beginning_of_week .. week.end_of_week ).to_a.map{ |d| Date.new(d.year, d.month) }.uniq
 
 #week-calendar-vertical.page-wrapper{ class: [direction] }
+  = partial 'page_index', locals: { month: week }
 
   - if direction == :left
     %header
