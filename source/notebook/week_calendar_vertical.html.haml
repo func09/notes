@@ -9,29 +9,24 @@
 
   - if direction == :left
     %header
-      .months
+      .months{ class: months.size == 2 && 'double' }
         - months.each do |m|
           %span.month{ class: m.strftime("%^b").downcase }
             = m.strftime("%m")
       .week-info
         .year-no
-          %span Year
           %span= week.year
-        .week-no
-          %span Week
           %span= week.cweek
           %span>< th
         .week-no
-          %span Day
-          %span= week.beginning_of_week.yday
-          %span>< ..
-          %span><= week.end_of_week.yday
-          %span th
+          %span><
+            = (week.beginning_of_week.yday / 365.0 * 100).ceil
+          %span %
       .inner
         .mini-calendars
           - months.each do |m|
             .mini-calendar
-              = partial "svg/mini_calendar", locals: { current_week: week, month: m, w: 24, h: 24 }
+              = partial "svg/mini_calendar", locals: { current_week: week, month: m, w: 25, h: 28 }
   .content
     %table.week
       %thead

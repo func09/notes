@@ -28,10 +28,26 @@ header {
     padding: $section;
   }
 
-  .month {
-    @extend %month-font;
-    font-size: $section * 2.5;
-    font-weight: lighter;
+  .months {
+    .month {
+      @extend %month-font;
+      font-size: $section * 2.5;
+      font-weight: lighter;
+    }
+
+    &.double {
+      .month:first-child {
+        font-size: $section * 1.5;
+
+        &:after {
+          margin-left: $section * -0.5;
+          font-size: $section;
+          color: lighten($font-color, 30%);
+          content: "&";
+        }
+      }
+
+    }
   }
 
   .week-info {
