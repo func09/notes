@@ -57,56 +57,6 @@ body {
     }
   }
 
-  &#year-planner,
-  &#month-planner {
-    header {
-      min-height: 0;
-      height: $section * 3;
-
-      .typo {
-        font-size: $section * 2.2;
-      }
-    }
-
-    &.left,
-    &.right {
-      padding: $margin;
-    }
-
-    .content {
-      position: relative;
-      overflow: hidden;
-      height: $section * 45;
-
-      .grid {
-        z-index: -10;
-        position: absolute;
-      }
-
-      h2 {
-        font-size: $section;
-        padding: $section * 0.5 0;
-        border-bottom: 2pt solid $border-color;
-        background: white;
-      }
-    }
-
-    section {
-      margin-bottom: $margin;
-
-      > .box {
-        height: $section * 20;
-      }
-
-      &#vision,
-      &#record {
-        > .box {
-          height: $section * 43;
-        }
-      }
-    }
-  }
-
   &#month-cover,
   &#week-cover {
     @import "cover";
@@ -118,6 +68,11 @@ body {
 
   &#year-index {
     @import "year_index";
+  }
+
+  &#month-plan,
+  &#year-plan {
+    @import "plan";
   }
 
   &#month-calendar {
