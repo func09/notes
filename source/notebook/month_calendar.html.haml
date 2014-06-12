@@ -19,7 +19,7 @@
                 .typo
                   .m-col
                     .m
-                      = month.strftime("%m")
+                      = month.strftime("%-m")
                   .m-col
                     .m-name
                       = month.strftime("%^b")
@@ -44,7 +44,8 @@
                 - if d.month == month.month
                   %td.day{ class: wday_style_name(d) }
                     .typo
-                      = d.strftime("%d")
+                      %span><= "&nbsp;" if d.day.to_s.length == 1
+                      = d.day
                     - if d.national_holiday?
                       .holiday-name
                         = HolidayJapan.name(d)

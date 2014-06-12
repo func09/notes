@@ -18,7 +18,7 @@
 
   %g{ transform: "translate(0, #{section * 1})" }
     %text{ x: section * 3.5, 'font-size' => font_size * 1.2, 'text-anchor' => 'middle' }
-      = month.strftime("%m")
+      = month.strftime("%-m")
 
   %g{ transform: "translate(#{section * 0.5}, 0)" }
 
