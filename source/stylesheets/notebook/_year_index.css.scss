@@ -30,11 +30,12 @@ header {
   th {
     height: $section * 2;
     .typo {
+      text-align: center;
       .m {
-        font-size: $section * 1;
+        font-size: $section * 1.0;
       }
       .m-name {
-        font-size: $section * 0.5;
+        font-size: $section * 0.75;
       }
     }
   }
