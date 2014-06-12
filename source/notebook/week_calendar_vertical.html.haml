@@ -13,7 +13,7 @@
       .months{ class: months.size == 2 && 'double' }
         - months.each do |m|
           %span.month{ class: m.strftime("%^b").downcase }
-            = m.strftime("%m")
+            = m.strftime("%-m")
       .week-info
         .year-no
           %span= week.year
