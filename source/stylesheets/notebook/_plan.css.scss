@@ -1,0 +1,57 @@
+header {
+  min-height: 0;
+  height: $section * 3;
+
+  .typo {
+    @extend %month-font;
+
+    .m,
+    .y {
+      float: left;
+      font-size: $section * 4;
+    }
+
+    .sub {
+      padding-top: $section * 0.4;
+      font-size: $section;
+    }
+  }
+}
+
+&.left,
+&.right {
+  padding: $margin;
+}
+
+.content {
+  position: relative;
+  overflow: hidden;
+  height: $section * 45;
+
+  .grid {
+    z-index: -10;
+    position: absolute;
+  }
+
+  h2 {
+    font-size: $section;
+    padding: $section * 0.5 0;
+    border-bottom: 2pt solid $border-color;
+    background: white;
+  }
+}
+
+section {
+  margin-bottom: $margin;
+
+  > .box {
+    height: $section * 20;
+  }
+
+  &#vision,
+  &#record {
+    > .box {
+      height: $section * 43;
+    }
+  }
+}
