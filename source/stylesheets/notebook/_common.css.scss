@@ -4,7 +4,6 @@ $page-width: 130mm;
 $page-height: 210mm;
 $margin: 5mm;
 
-// $section: $page-width / 35;
 $section: 4mm;
 $border-width: 0.5mm;
 $index_height: 12mm;
@@ -12,9 +11,8 @@ $index_height: 12mm;
 // Color
 
 $font-color: #999999;
-// $bg-color: #bfda53;
 $bg-color: #eee;
-$border-color: #DDDDDD;
+$border-color: #CCCCCC;
 $saturday: lighten($font-color, 10%);
 $sunday: #ec7461;
 $holiday: $sunday;

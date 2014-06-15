@@ -33,7 +33,7 @@
         %g{ transform: "translate(0, #{section * n})" }
           - if current_week && current_week.beginning_of_week == week.first
             %g{ transform: "translate(#{-(section * 0)}, #{-(section * 0.25)})" }
-              %path{ d: "M0, 0 L#{w - section * 1.5}, 0", "stroke" => "#EEE", "stroke-width" => section, "stroke-linecap" => "round" }
+              %path{ d: "M0, 0 L#{w - section * 2.0}, 0", "stroke" => "#EEE", "stroke-width" => section, "stroke-linecap" => "round" }
           - week.each.with_index do |day, m|
             - if day.month == month.month
               %g{ width: section, height: section, transform: "translate(#{m * section}, 0)" }

@@ -3,7 +3,7 @@
 - h ||= 210
 - view_box = "0 0 #{w} #{h}"
 %svg{ width: "#{w}mm", height: "#{h}mm", viewBox: view_box, preserveAspectRatio: 'xMinYMin'}
-  %g{ "stroke" => '#EEE', "stroke-dasharray" => 0.7, "stroke-width" => 0.25 }
+  %g{ "stroke" => '#DDD', "stroke-dasharray" => 0.7, "stroke-width" => 0.25 }
     - (h / section).to_i.times do |n|
       - y = section * (n + 1)
       %path{ d: "M0, #{y} L#{w}, #{y}" }
