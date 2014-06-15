@@ -18,3 +18,5 @@ gem "haml"
 gem "sass"
 gem "holiday_japan"
 gem 'middleman-autoprefixer'
+
+gem 'middleman-notes', path: 'vendor/middleman-notes'

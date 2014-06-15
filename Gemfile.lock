@@ -1,3 +1,9 @@
+PATH
+  remote: vendor/middleman-notes
+  specs:
+    middleman-notes (0.0.1)
+      middleman-core (>= 3.3.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -127,6 +133,7 @@ DEPENDENCIES
   middleman (~> 3.3.2)
   middleman-autoprefixer
   middleman-livereload (~> 3.1.0)
+  middleman-notes!
   rake
   sass
   tzinfo-data

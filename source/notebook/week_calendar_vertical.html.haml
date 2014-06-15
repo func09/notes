@@ -65,8 +65,8 @@
                   - (7..23).each do |t|
                     %dt
                       %time
-                        - if t % 6 == 0
-                          %span.line
+                        - if t % 3 == 0
+                          %span{ class: t % 6 == 0 && 'line' }
                           = "%02d" % t
                         - else
                           ・

@@ -97,7 +97,6 @@ header {
       @extend %wday-font;
       height: $section * 4.5;
       border-bottom: $border-width dashed $border-color;
-      border-top: $border-width * 2 solid $border-color;
 
       position: relative;
       vertical-align: top;
