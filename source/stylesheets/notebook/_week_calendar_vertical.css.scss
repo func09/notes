@@ -146,6 +146,8 @@ header {
         }
 
         time {
+          display: inline-block;
+          width: $section * 0.8;
           font-size: $section * 0.5;
           font-weight: lighter;
           text-align: center;
