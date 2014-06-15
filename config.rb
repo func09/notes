@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'middleman-notes'
 
 class Page
   def initialize(prefix = "page", format = "%03d")
@@ -103,14 +104,6 @@ helpers do
   def ja_wdays
     %w(日 月 火 水 木 金 土)
   end
-
-  def wday_style_name(date, ignores: [])
-    klasses = []
-    klasses << date.strftime("%a").downcase
-    klasses << date.strftime("%b").downcase unless ignores.include?(:month)
-    klasses << :holiday if !ignores.include?(:holiday) && date.national_holiday?
-    klasses
-  end
 end
 
 set :css_dir,    'stylesheets'
@@ -124,13 +117,7 @@ configure :build do
   activate :relative_assets
 end
 
-set :page_width, 130
-set :page_height, 210
-
-after_build do |builder|
-  inputfile = "build/notebook/page*.html"
-  tmpfile = "tmp/notes_tmp.pdf"
-  outfile = "tmp/notes.pdf"
-  `wkhtmltopdf --outline --margin-top 0 --margin-left 0 --margin-right 0 --margin-bottom 0 --page-height #{page_height} --page-width #{page_width} #{inputfile} #{tmpfile}`
-  `pdfjam --landscape --booklet true --nup 2x1 --outfile #{outfile} #{tmpfile}`
+activate :notes do |notes|
+  notes.page_width = 130
+  notes.page_height = 210
 end
