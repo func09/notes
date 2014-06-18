@@ -40,7 +40,7 @@ body {
   overflow: hidden;
 
   &.left {
-    border-right: $border-width dashed $border-color;
+    border-right: $border-width dashed lighten($border-color, 10%);
     padding-right: 0;
   }
   &.right { padding-left: 0; }
