@@ -20,5 +20,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("middleman-core", [">= 3.3.2"])
 
   # Additional dependencies
-  # s.add_runtime_dependency("gem-name", "gem-version")
+  s.add_runtime_dependency("wkhtmltopdf_binary_provider", "0.12.0")
+
 end

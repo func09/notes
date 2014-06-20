@@ -99,7 +99,7 @@ module Middleman::Cli
 
     def wkhtmltopdf_cmd(input, output, width: 130, height: 210 )
       <<-CMD
-        wkhtmltopdf --outline --margin-top 0 --margin-left 0 --margin-right 0 --margin-bottom 0 \
+        bundle exec wkhtmltopdf --outline --margin-top 0 --margin-left 0 --margin-right 0 --margin-bottom 0 \
           --page-height #{height} --page-width #{width} \
           #{input} #{output}
       CMD
