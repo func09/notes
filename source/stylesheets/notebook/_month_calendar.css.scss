@@ -59,6 +59,16 @@
       font-size: 4mm;
     }
 
+    .checkbox {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: $section;
+      height: $section;
+      border-left: $border-width dashed $border-color;
+      border-bottom: $border-width dashed $border-color;
+    }
+
     .holiday-name {
       position: absolute;
       bottom: 2mm;
