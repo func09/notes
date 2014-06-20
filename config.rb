@@ -38,8 +38,8 @@ YEAR.step(YEAR + 1).each.with_index do |year, index|
     ignore: true
 end
 
-(Date.new(YEAR).beginning_of_year .. Date.new(YEAR).next_year.end_of_year).select{|d| d.day == 1}.
-  in_groups_of(6).each.with_index do |group, index|
+(Date.new(YEAR).beginning_of_year .. Date.new(YEAR).end_of_year).select{|d| d.day == 1}.
+  in_groups_of(3).each.with_index do |group, index|
     year = group.first
     proxy "/notebook/#{page.countup}.html",
       "notebook/year_index.html",
