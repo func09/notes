@@ -5,12 +5,9 @@
 
   %header
     - if direction == :left
-      .box
-        .typo
-          .nengo
-            平成#{year.year - 1988}年
-          .year
-            = year.strftime('%Y')
+      .typo
+        .y
+          = year.strftime("%Y")
 
   .content
     %table.months
@@ -33,5 +30,6 @@
                   %span><= "&nbsp;" if day.day.to_s.length == 1
                   = day.strftime("%-d")
                   = ja_wdays[day.wday]
+                  = HolidayJapan.name(day)
               - else
                 %td

@@ -1,9 +1,12 @@
 header {
-  .box {
-    .typo {
-      margin-top: 4mm;
-      .year { font-size: 8mm; }
-      .nengo { font-size: 2.4mm; }
+  min-height: 0;
+  height: $section * 3;
+
+  .typo {
+
+    .y {
+      float: left;
+      font-size: $section * 4;
     }
   }
 }
@@ -11,6 +14,7 @@ header {
 .months {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 
   td, th {
     padding: 1mm;
@@ -18,11 +22,11 @@ header {
     border-right: none;
     border-left-style: dashed;
 
-    &.jan {
+    &.jan, &.jul {
       border-left-style: solid;
     }
 
-    &.dec {
+    &.jun, &.dec {
       border-right: $border-width solid $border-color;
     }
   }
@@ -49,8 +53,8 @@ header {
   td {
     @extend %wday-font;
     @extend %wday-bg;
-    height: $section - 1.0mm;
-    font-size: 2mm;
+    padding: 1.4mm;
+    font-size: $section * 0.6;
     border-top: none;
     border-bottom: $border-width dashed $border-color;
   }
