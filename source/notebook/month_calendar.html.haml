@@ -41,18 +41,20 @@
                   %p □
             - group.each.with_index do |d, m|
               - if target_wdays.include?(d.wday)
-                - if d.month == month.month
+                - case
+                - when d.month == month.month
                   %td.day{ class: wday_style_name(d) }
+                    .checkbox
                     .typo
                       %span><= "&nbsp;" if d.day.to_s.length == 1
                       = d.day
                     - if d.national_holiday?
                       .holiday-name
                         = HolidayJapan.name(d)
-                - elsif days[-2] == d
+                - when days[-2] == d
                   %td.day.other.mini-calendar
                     = partial "svg/mini_calendar", locals: { month: month.prev_month }
-                - elsif days[-1] == d
+                - when days[-1] == d
                   %td.day.other.mini-calendar
                     = partial "svg/mini_calendar", locals: { month: month.next_month }
                 - else
